@@ -1,8 +1,8 @@
 # Axl0-Fr.github.io
 
-[![Deploy Live Branch](https://github.com/Axl0-Fr/Axl0-Fr.github.io/actions/workflows/deploy-live.yml/badge.svg?branch=live)](https://github.com/Axl0-Fr/Axl0-Fr.github.io/actions/workflows/deploy-live.yml)
-[![Deploy Demo Branch](https://github.com/Axl0-Fr/Axl0-Fr.github.io/actions/workflows/deploy-demo.yml/badge.svg?branch=demo)](https://github.com/Axl0-Fr/Axl0-Fr.github.io/actions/workflows/deploy-demo.yml)
-[![Deploy Code Branch](https://github.com/Axl0-Fr/Axl0-Fr.github.io/actions/workflows/deploy-code.yml/badge.svg?branch=code)](https://github.com/Axl0-Fr/Axl0-Fr.github.io/actions/workflows/deploy-code.yml)
+[![LIVE Branch Status](https://api.netlify.com/api/v1/badges/93905177-a3a3-486f-b3a9-e0e4db214775/deploy-status)](https://app.netlify.com/projects/live-axl0-website/deploys)
+[![DEMO Branch Status](https://api.netlify.com/api/v1/badges/d18d5c1a-b16a-47e1-8665-26de1d282c1b/deploy-status)](https://app.netlify.com/projects/demo-axl0-website/deploys)
+[![CODE Branch Status](https://api.netlify.com/api/v1/badges/6c373d54-9a5c-48d9-baab-69b11e01d773/deploy-status)](https://app.netlify.com/projects/code-axl0-website/deploys)
 
 ---
 
@@ -15,7 +15,7 @@ This is the repo where all of my website (and subwebsites) are hosted. You can e
 
 ## Do you want to contribute?
 
-Feel free to help with this project anytime! Comments, bug reports, or any help will be gratly apprciated. Feel free to contact me on any of my [socials](https://www.axl0.fr/#4)
+Feel free to help with this project anytime! Comments, bug reports, or any help will be greatly appreciated. Feel free to contact me on any of my [socials](https://www.axl0.fr/#4)
 
 ## Legal shenanigans
 

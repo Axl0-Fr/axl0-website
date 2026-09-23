@@ -327,6 +327,7 @@ body {
   display: inline-flexbox;
   justify-content: flex;
   gap: 8px;
+  margin: 4pt 8pt;
 }
 
 .button-primary,
@@ -542,7 +543,6 @@ h2 {
   color: #fff;
   text-align: center;
   font-size: 0.8rem;
-  font-family: Arial, sans-serif;
   line-height: 1.5;
   max-width: 100vw;
   margin: 0 auto;

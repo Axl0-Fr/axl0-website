@@ -79,4 +79,22 @@ document.addEventListener("DOMContentLoaded", () => {
       hamburgerBtn.style.boxShadow = "";
     });
   }
+
+  // Theme selector: theming lives in CSS ([data-theme] + light-dark()),
+  // the JS only syncs the dropdown and stores the choice.
+  const themeSelect = document.querySelector(".theme-selector");
+  if (themeSelect) {
+    themeSelect.value = localStorage.getItem("theme") || "system";
+
+    themeSelect.addEventListener("change", () => {
+      const theme = themeSelect.value;
+      if (theme === "system") {
+        delete document.documentElement.dataset.theme;
+        localStorage.removeItem("theme");
+      } else {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("theme", theme);
+      }
+    });
+  }
 });

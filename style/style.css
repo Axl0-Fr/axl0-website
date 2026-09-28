@@ -99,10 +99,164 @@
   font-style: italic;
 }
 
+:root {
+  color-scheme: light dark;
+  --rosewater: light-dark(#dc8a78, #f5e0dc);
+  --flamingo: light-dark(#dd7878, #f2cdcd);
+  --pink: light-dark(#ea76cb, #f5c2e7);
+  --mauve: light-dark(#8839ef, #cba6f7);
+  --red: light-dark(#d20f39, #f38ba8);
+  --maroon: light-dark(#e64553, #eba0ac);
+  --peach: light-dark(#fe640b, #fab387);
+  --yellow: light-dark(#df8e1d, #f9e2af);
+  --green: light-dark(#40a02b, #a6e3a1);
+  --teal: light-dark(#179299, #94e2d5);
+  --sky: light-dark(#04a5e5, #89dceb);
+  --sapphire: light-dark(#209fb5, #74c7ec);
+  --blue: light-dark(#1e66f5, #89b4fa);
+  --lavender: light-dark(#7287fd, #b4befe);
+  --text: light-dark(#4c4f69, #cdd6f4);
+  --subtext1: light-dark(#5c5f77, #bac2de);
+  --subtext0: light-dark(#6c6f85, #a6adc8);
+  --overlay2: light-dark(#7c7f93, #9399b2);
+  --overlay1: light-dark(#8c8fa1, #7f849c);
+  --overlay0: light-dark(#9ca0b0, #6c7086);
+  --surface2: light-dark(#acb0be, #585b70);
+  --surface1: light-dark(#bcc0cc, #45475a);
+  --surface0: light-dark(#ccd0da, #313244);
+  --base: light-dark(#eff1f5, #1e1e2e);
+  --mantle: light-dark(#e6e9ef, #181825);
+  --crust: light-dark(#dce0e8, #11111b);
+  --bg-tile: light-dark(
+    url("../content/latte_tile.png"),
+    url("../content/mocha_tile.png")
+  );
+}
+
+:root[data-theme="latte"] {
+  --rosewater: #dc8a78;
+  --flamingo: #dd7878;
+  --pink: #ea76cb;
+  --mauve: #8839ef;
+  --red: #d20f39;
+  --maroon: #e64553;
+  --peach: #fe640b;
+  --yellow: #df8e1d;
+  --green: #40a02b;
+  --teal: #179299;
+  --sky: #04a5e5;
+  --sapphire: #209fb5;
+  --blue: #1e66f5;
+  --lavender: #7287fd;
+  --text: #4c4f69;
+  --subtext1: #5c5f77;
+  --subtext0: #6c6f85;
+  --overlay2: #7c7f93;
+  --overlay1: #8c8fa1;
+  --overlay0: #9ca0b0;
+  --surface2: #acb0be;
+  --surface1: #bcc0cc;
+  --surface0: #ccd0da;
+  --base: #eff1f5;
+  --mantle: #e6e9ef;
+  --crust: #dce0e8;
+  --bg-tile: url("../content/latte_tile.png");
+}
+
+:root[data-theme="frappe"] {
+  --rosewater: #f2d5cf;
+  --flamingo: #eebebe;
+  --pink: #f4b8e4;
+  --mauve: #ca9ee6;
+  --red: #e78284;
+  --maroon: #ea999c;
+  --peach: #ef9f76;
+  --yellow: #e5c890;
+  --green: #a6d189;
+  --teal: #81c8be;
+  --sky: #99d1db;
+  --sapphire: #85c1dc;
+  --blue: #8caaee;
+  --lavender: #babbf1;
+  --text: #c6d0f5;
+  --subtext1: #b5bfe2;
+  --subtext0: #a5adce;
+  --overlay2: #949cbb;
+  --overlay1: #838ba7;
+  --overlay0: #737994;
+  --surface2: #626880;
+  --surface1: #51576d;
+  --surface0: #414559;
+  --base: #303446;
+  --mantle: #292c3c;
+  --crust: #232634;
+  --bg-tile: url("../content/frappe_tile.png");
+}
+
+:root[data-theme="macchiato"] {
+  --rosewater: #f4dbd6;
+  --flamingo: #f0c6c6;
+  --pink: #f5bde6;
+  --mauve: #c6a0f6;
+  --red: #ed8796;
+  --maroon: #ee99a0;
+  --peach: #f5a97f;
+  --yellow: #eed49f;
+  --green: #a6da95;
+  --teal: #8bd5ca;
+  --sky: #91d7e3;
+  --sapphire: #7dc4e4;
+  --blue: #8aadf4;
+  --lavender: #b7bdf8;
+  --text: #cad3f5;
+  --subtext1: #b8c0e0;
+  --subtext0: #a5adcb;
+  --overlay2: #939ab7;
+  --overlay1: #8087a2;
+  --overlay0: #6e738d;
+  --surface2: #5b6078;
+  --surface1: #494d64;
+  --surface0: #363a4f;
+  --base: #24273a;
+  --mantle: #1e2030;
+  --crust: #181926;
+  --bg-tile: url("../content/macchiato_tile.png");
+}
+
+:root[data-theme="mocha"] {
+  --rosewater: #f5e0dc;
+  --flamingo: #f2cdcd;
+  --pink: #f5c2e7;
+  --mauve: #cba6f7;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
+  --peach: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --sky: #89dceb;
+  --sapphire: #74c7ec;
+  --blue: #89b4fa;
+  --lavender: #b4befe;
+  --text: #cdd6f4;
+  --subtext1: #bac2de;
+  --subtext0: #a6adc8;
+  --overlay2: #9399b2;
+  --overlay1: #7f849c;
+  --overlay0: #6c7086;
+  --surface2: #585b70;
+  --surface1: #45475a;
+  --surface0: #313244;
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --crust: #11111b;
+  --bg-tile: url("../content/mocha_tile.png");
+}
+
 /* Basestyles */
 body {
   font-family: "Cartograph CF", Arial, Helvetica, sans-serif;
-  background-image: url("../content/bookshelf_tile.png");
+  background-image: var(--bg-tile);
   background-size: 302px 512px;
   background-position: 50%;
   background-repeat: repeat;
@@ -117,27 +271,27 @@ body {
   position: fixed;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 10;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 12px;
-  background: rgba(69, 88, 113, 0.15);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
-  padding: 0 6pt;
-  height: 72px;
-  border-bottom: 4px solid rgba(255, 255, 255, 0.15);
-  border-left: 4px solid rgba(255, 255, 255, 0.15);
-  border-right: 4px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(256px);
+  gap: 8pt;
+  background: color-mix(in srgb, var(--base) 50%, transparent);
+  border-bottom-left-radius: 16pt;
+  border-bottom-right-radius: 16pt;
+  box-shadow: 0 4pt 24pt color-mix(in srgb, var(--base) 15%, transparent);
+  padding: 0 8pt;
+  height: 56pt;
+  border-bottom: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  border-left: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  border-right: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  backdrop-filter: blur(8pt);
+  -webkit-backdrop-filter: blur(8pt);
 }
 
 .top-bar a {
-  color: #fff;
+  color: var(--overlay0);
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
@@ -154,15 +308,13 @@ body {
 }
 
 .top-bar a:hover {
-  background: rgba(251, 160, 204, 0.16);
-  color: #fba0cc;
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(256px);
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
 }
 
 .top-bar a.active {
-  color: #e069a9;
-  background: rgba(224, 105, 169, 0.16);
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
 }
 
 .top-bar a i {
@@ -171,18 +323,18 @@ body {
   margin: 4pt;
 }
 
-/* FIXME : hover effect on the hambrurger button */
 .hamburger {
   display: none;
   position: fixed;
   top: 12px;
   left: 16px;
-  background: rgba(45, 58, 75, 0.15);
+  background: color-mix(in srgb, var(--base) 50%, transparent);
   border-radius: 12px;
   z-index: 20;
-  color: #fff;
+  color: var(--overlay0);
   font-size: 2rem;
-  border: 4px solid rgba(255, 255, 255, 0.15);
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  box-shadow: 0 4pt 24pt color-mix(in srgb, var(--base) 15%, transparent);
   width: 40px;
   height: 40px;
   justify-content: center;
@@ -197,9 +349,8 @@ body {
 
 .hamburger:hover,
 .hamburger:focus {
-  background: rgba(45, 58, 75, 0.15);
-  border: 4px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
@@ -209,8 +360,8 @@ body {
 }
 
 .hamburger.active {
-  color: #e069a9;
-  background: rgba(224, 105, 169, 0.12);
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
 }
 
 .hamburger-menu {
@@ -219,9 +370,9 @@ body {
   position: fixed;
   top: 56px;
   left: 16px;
-  background: rgba(45, 58, 75, 0.15);
+  background: color-mix(in srgb, var(--base) 50%, transparent);
   border-radius: 24px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--base) 15%, transparent);
   z-index: 30;
   min-width: 224px;
   padding: 1.5rem;
@@ -229,7 +380,7 @@ body {
   align-items: flex-start;
   animation: fadeIn 0.18s;
   overflow: hidden;
-  border: 4px solid rgba(255, 255, 255, 0.15);
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
@@ -239,7 +390,7 @@ body {
 }
 
 .hamburger-menu a {
-  color: #fff;
+  color: var(--overlay0);
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 600;
@@ -260,13 +411,13 @@ body {
 }
 
 .hamburger-menu a:hover {
-  background: rgba(251, 160, 204, 0.16);
-  color: #fba0cc;
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
 }
 
 .hamburger-menu a.active {
-  color: #e069a9;
-  background: rgba(224, 105, 169, 0.16);
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
 }
 
 .page-section {
@@ -333,10 +484,8 @@ body {
 .button-primary,
 .button-secondary,
 .button-tertiary,
-.button-threads,
 .button-twitter,
 .button-discord,
-.button-instagram,
 .button-youtube {
   border-radius: 16px;
   padding: 12px 12px;
@@ -354,106 +503,84 @@ body {
 }
 
 .button-primary {
-  background-color: #e069a9;
-  color: #fff;
-  border-color: #e069a9;
+  background-color: var(--surface2);
+  color: var(--text);
+  border-color: var(--surface2);
 }
 
 .button-primary:hover {
   background-color: transparent;
-  color: #e069a9;
+  color: var(--surface2);
 }
 
 .button-secondary {
-  background-color: #fba0cc;
-  color: #fff;
-  border-color: #fba0cc;
+  background-color: var(--surface1);
+  color: var(--text);
+  border-color: var(--surface1);
 }
 
 .button-secondary:hover {
   background-color: transparent;
-  color: #fba0cc;
+  color: var(--surface1);
 }
 
 .button-tertiary {
-  background-color: #fdd5f5;
-  color: #fff;
-  border-color: #fdd5f5;
+  background-color: var(--surface0);
+  color: var(--text);
+  border-color: var(--surface0);
 }
 
 .button-tertiary:hover {
   background-color: transparent;
-  color: #fdd5f5;
+  color: var(--surface0);
 }
 
 .button-twitter {
-  background-color: #1c9bf0;
-  color: #fff;
-  border-color: #1c9bf0;
+  background-color: var(--sky);
+  color: var(--crust);
+  border-color: var(--sky);
 }
 
 .button-twitter:hover {
   background-color: transparent;
-  color: #1c9bf0;
+  color: var(--sky);
 }
 
 .button-discord {
-  background-color: #5865f2;
-  color: #fff;
-  border-color: #5865f2;
+  background-color: var(--blue);
+  color: var(--crust);
+  border-color: var(--blue);
 }
 
 .button-discord:hover {
   background-color: transparent;
-  color: #5865f2;
+  color: var(--blue);
 }
 
 .button-youtube {
-  background-color: #ff0033;
-  color: #fff;
-  border-color: #ff0033;
+  background-color: var(--red);
+  color: var(--crust);
+  border-color: var(--red);
 }
 
 .button-youtube:hover {
   background-color: transparent;
-  color: #ff0033;
-}
-
-.button-instagram {
-  background-color: #fe0075;
-  color: #fff;
-  border-color: #fe0075;
-}
-
-.button-instagram:hover {
-  background-color: transparent;
-  color: #fe0075;
-}
-
-.button-threads {
-  background-color: #000000;
-  color: #fff;
-  border-color: #000000;
-}
-
-.button-threads:hover {
-  background-color: transparent;
-  color: #000000;
+  color: var(--red);
 }
 
 .hero-title {
   font-size: 4rem;
   font-weight: 700;
-  color: #fff;
-  text-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+  color: var(--subtext1);
+  text-shadow: 2pt 1pt 4pt color-mix(in srgb, var(--base) 15%, transparent);
   margin: 0;
   text-align: end;
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: #fff;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  color: var(--subtext0);
+  text-shadow: 2pt 1pt 4pt color-mix(in srgb, var(--base) 15%, transparent);
   font-style: italic;
   text-align: end;
 }
@@ -461,20 +588,21 @@ body {
 h2 {
   font-size: 2.5rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--subtext0);
+  text-shadow: 2pt 1pt 4pt color-mix(in srgb, var(--base) 15%, transparent);
   margin: 2rem 0 1rem;
   text-align: end;
 }
 
 .paragraph {
-  background: rgba(45, 58, 75, 0.15);
+  background: color-mix(in srgb, var(--base) 50%, transparent);
   border-radius: 24px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--base) 15%, transparent);
   padding: 1.5rem;
-  border: 4px solid rgba(255, 255, 255, 0.15);
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  color: #fff;
+  color: var(--text);
   max-width: 600px;
   margin: 2rem auto;
 }
@@ -486,12 +614,12 @@ h2 {
 
 .paragraph a {
   display: inline-block;
-  color: #fdd5f5;
+  color: var(--lavender);
   text-decoration: none;
 }
 
 .paragraph a:hover {
-  color: #fba0cc;
+  color: var(--mauve);
 }
 
 .paragraph-socials {
@@ -499,14 +627,14 @@ h2 {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  background: rgba(45, 58, 75, 0.15);
+  background: color-mix(in srgb, var(--base) 50%, transparent);
   border-radius: 24px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--base) 15%, transparent);
   padding: 1.5rem;
-  border: 4px solid rgba(255, 255, 255, 0.15);
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  color: #fff;
+  color: var(--text);
   max-width: 600px;
   margin: 2rem auto;
 }
@@ -539,24 +667,26 @@ h2 {
   justify-content: center;
   align-items: center;
   border-radius: 16px;
-  border: 4px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  color: var(--text);
   text-align: center;
   font-size: 0.8rem;
   line-height: 1.5;
   max-width: 100vw;
   margin: 0 auto;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--base) 15%, transparent);
+  -webkit-box-shadow: 0 8px 32px 0
+    color-mix(in srgb, var(--base) 15%, transparent);
+  background-color: color-mix(in srgb, var(--base) 25%, transparent);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
 
 .footer-content a {
-  color: #e069a9;
+  color: var(--mauve);
   text-decoration: none;
 }
 
 .footer-content a:hover {
-  color: #fba0cc;
+  color: var(--lavender);
 }

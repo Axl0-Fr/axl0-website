@@ -1,0 +1,18 @@
+# robots.txt — https://www.axl0.fr
+# Single-page portfolio. All content lives on the root URL; the nav sections
+# are in-page anchors (#1..#4), not separate documents.
+#
+# The whole site is a portfolio and is licensed CC BY-NC-SA 4.0, so it is
+# meant to be indexed.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.axl0.fr/sitemap.xml
+
+# NOTE: do not crawl-block style/, script/, content/ or fonts/.
+# style/style.css drives the entire layout, the four Catppuccin themes and the
+# light/dark switching. Blocking it makes the site render as unstyled markup.
+
+# Subdomains (crew.axl0.fr, legacy.axl0.fr) are separate deployments and need
+# their own robots.txt.

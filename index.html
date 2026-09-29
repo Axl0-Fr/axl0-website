@@ -40,11 +40,10 @@
         Socials
       </a>
     </nav>
-    <!-- FIXME: the text is right next to the icons in the hamburger menu -->
-    <button class="hamburger" aria-label="Open menu">
+    <button class="hamburger" aria-label="Open menu" aria-haspopup="true" aria-expanded="false" aria-controls="hamburgerMenu">
       <i class="fa-solid fa-bars"></i>
     </button>
-    <nav class="hamburger-menu" id="hamburgerMenu">
+    <nav class="dropdown-menu" id="hamburgerMenu" data-placement="left" data-mobile-only>
       <a href="#1">
         <i class="fa-solid fa-house"></i>
         Home
@@ -62,6 +61,27 @@
         Socials
       </a>
     </nav>
+    <button class="theme-toggle" aria-label="Themes" aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu">
+      <i class="fa-solid fa-circle-half-stroke"></i>
+      <span class="theme-toggle-label">Themes</span>
+    </button>
+    <div class="dropdown-menu" id="themeMenu" role="group" aria-label="Themes" data-placement="right">
+      <button type="button" data-theme-value="system">
+        🖥️ System
+      </button>
+      <button type="button" data-theme-value="latte">
+        🌻 Latte
+      </button>
+      <button type="button" data-theme-value="frappe">
+        🪴 Frappé
+      </button>
+      <button type="button" data-theme-value="macchiato">
+        🌺 Macchiato
+      </button>
+      <button type="button" data-theme-value="mocha">
+        🌿 Mocha
+      </button>
+    </div>
     <section class="page-section" id="1">
       <div class="hero-title-container">
         <h1 class="hero-title">Axl0</h1>
@@ -78,10 +98,10 @@
           <a href="#2">
             <button class="button-primary">Résumé</button>
           </a>
-          <a href="https://crew.axl0.fr">
+          <!-- <a href="https://crew.axl0.fr"> -->
              <!--TODO: make the crew's page -->
-            <button class="button-secondary">The&nbsp;Crew</button>
-          </a>
+            <!-- <button class="button-secondary">The&nbsp;Crew</button> -->
+          <!-- </a> -->
           <a href="https://legacy.axl0.fr/">
             <button class="button-tertiary">Legacy&nbsp;Website</button>
           </a>
@@ -202,13 +222,6 @@
           <a href="https://github.com/Axl0-Fr/axl0-website/issues">Report a bug</a> |
           <a href="https://github.com/Axl0-Fr/axl0-website/blob/main/LICENSE">License</a>
         </p>
-        <select class="theme-selector">
-          <option value="system">🖥️ System</option>
-          <option value="latte">🌻 Latte</option>
-          <option value="frappe">🪴 Frappé</option>
-          <option value="macchiato">🌺 Macchiato</option>
-          <option value="mocha">🌿 Mocha</option>
-        </select>
       </div>
     </section>
   </body>

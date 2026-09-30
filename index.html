@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- === Essential meta === -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- === Page title & description === -->
+    <title>Axl0 | Wannabe webdev</title>
     <meta name="description" content="Axl0's portfolio" />
-    <title> Axl0 | Wannabe webdev</title>
-    <link rel="icon" type="image/png" href="content/favicon.png" />
+
+    <!-- === Favicon (served from the site root, where browsers look for it) === -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
     <script>
       // Apply a saved theme before first paint (avoids a flash of the
       // wrong flavor). "system" means no data-theme -> CSS light-dark().
@@ -16,213 +21,209 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="style/style.css" />
+
+    <!-- === Stylesheet (single entry point) === -->
+    <link rel="stylesheet" href="./stylesheet/main.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.0.0/css/all.css" />
-    <script src="script/script.js" defer></script>
+
+    <!-- === Javascript (single entry point) === -->
+    <script src="./script/frontend.js" defer></script>
   </head>
 
   <body>
-    <nav class="top-bar">
-      <a href="#1">
-        <i class="fa-solid fa-house"></i>
+    <!-- === Desktop navigation === -->
+    <nav class="topbar">
+      <a class="topbar__item" href="#1">
+        <i class="topbar__icon fa-solid fa-house"></i>
         Home
       </a>
-      <a href="#2">
-        <i class="fa-solid fa-scroll"></i>
+      <a class="topbar__item" href="#2">
+        <i class="topbar__icon fa-solid fa-scroll"></i>
         Résumé
       </a>
-      <a href="#3">
-        <i class="fa-solid fa-clipboard"></i>
+      <a class="topbar__item" href="#3">
+        <i class="topbar__icon fa-solid fa-clipboard"></i>
         Projects
       </a>
-      <a href="#4">
-        <i class="fa-solid fa-share-nodes"></i>
+      <a class="topbar__item" href="#4">
+        <i class="topbar__icon fa-solid fa-share-nodes"></i>
         Socials
       </a>
     </nav>
-    <button class="hamburger" aria-label="Open menu" aria-haspopup="true" aria-expanded="false" aria-controls="hamburgerMenu">
-      <i class="fa-solid fa-bars"></i>
+
+    <!-- === Mobile navigation === -->
+    <button class="burger" aria-label="Open menu" aria-haspopup="true" aria-expanded="false" aria-controls="navMenu">
+      <i class="burger__icon fa-solid fa-bars"></i>
     </button>
-    <nav class="dropdown-menu" id="hamburgerMenu" data-placement="left" data-mobile-only>
-      <a href="#1">
+    <nav class="dropdown dropdown--nav dropdown--left" id="navMenu">
+      <a class="dropdown__item" href="#1">
         <i class="fa-solid fa-house"></i>
         Home
       </a>
-      <a href="#2">
+      <a class="dropdown__item" href="#2">
         <i class="fa-solid fa-scroll"></i>
         Résumé
       </a>
-      <a href="#3">
+      <a class="dropdown__item" href="#3">
         <i class="fa-solid fa-clipboard"></i>
         Projects
       </a>
-      <a href="#4">
+      <a class="dropdown__item" href="#4">
         <i class="fa-solid fa-share-nodes"></i>
         Socials
       </a>
     </nav>
+
+    <!-- === Theme picker === -->
     <button class="theme-toggle" aria-label="Themes" aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu">
-      <i class="fa-solid fa-circle-half-stroke"></i>
-      <span class="theme-toggle-label">Themes</span>
+      <i class="theme-toggle__icon fa-solid fa-circle-half-stroke"></i>
+      <span class="theme-toggle__label">Themes</span>
     </button>
-    <div class="dropdown-menu" id="themeMenu" role="group" aria-label="Themes" data-placement="right">
-      <button type="button" data-theme-value="system">
+    <div class="dropdown dropdown--right" id="themeMenu" role="group" aria-label="Themes">
+      <button class="dropdown__item" type="button" data-theme-value="system">
         🖥️ System
       </button>
-      <button type="button" data-theme-value="latte">
+      <button class="dropdown__item" type="button" data-theme-value="latte">
         🌻 Latte
       </button>
-      <button type="button" data-theme-value="frappe">
+      <button class="dropdown__item" type="button" data-theme-value="frappe">
         🪴 Frappé
       </button>
-      <button type="button" data-theme-value="macchiato">
+      <button class="dropdown__item" type="button" data-theme-value="macchiato">
         🌺 Macchiato
       </button>
-      <button type="button" data-theme-value="mocha">
+      <button class="dropdown__item" type="button" data-theme-value="mocha">
         🌿 Mocha
       </button>
     </div>
-    <section class="page-section" id="1">
-      <div class="hero-title-container">
-        <h1 class="hero-title">Axl0</h1>
-        <div class="hero-subtitle">Wannabe webdev</div>
-      </div>
-      <div class="paragraph">
-        <p>
-          Heya :3! I'm Axl0. I'm just a person that likes to build and make cool stuff, on or off the internet. I made the 
-          first version of this website when I was 14. It was about my modpack organization (The Crew, I'll add a link below).
-          <br />
-          Now this has become a portfolio!
-        </p>
-        <div class="button-group">
-          <a href="#2">
-            <button class="button-primary">Résumé</button>
-          </a>
-          <!-- <a href="https://crew.axl0.fr"> -->
-             <!--TODO: make the crew's page -->
-            <!-- <button class="button-secondary">The&nbsp;Crew</button> -->
-          <!-- </a> -->
-          <a href="https://legacy.axl0.fr/">
-            <button class="button-tertiary">Legacy&nbsp;Website</button>
-          </a>
+
+    <main class="main">
+      <section class="section" id="1">
+        <div class="hero">
+          <h1 class="hero__title">Axl0</h1>
+          <div class="hero__subtitle">Wannabe webdev</div>
         </div>
-      </div>
-    </section>
-    <section class="page-section" id="2">
-      <h2>My Résumé</h2>
-      <div class="paragraph">
-        <p>
-          I've had multiple different projects over the years, but always in the realm of programming. I've spent a lot of time 
-          modifying Minecraft when I was younger, making servers and modpack, but currently I'm more focused on making projects 
-          from zero (websites, games&hellip;).
-          <br />
-          My full Curriculum Vitae will be available below (Soon&trade;).
-        </p>
-        <div class="button-group">
-          <a href="#3">
-            <button class="button-primary">Current projects</button>
-          </a>
-          <!--<a href="https://www.axl0.fr/cv">-->
-            <!-- TODO: make the CV page -->
-            <!--<button class="button-secondary">Full CV</button>-->
-          <!--</a>-->
+        <div class="card">
+          <p class="card__text">
+            Heya :3! I'm Axl0. I'm just a person that likes to build and make cool stuff, on or off the internet. I made the
+            first version of this website when I was 14. It was about my modpack organization (The Crew, I'll add a link below).
+            <br />
+            Now this has become a portfolio!
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#2">Résumé</a>
+            <!-- <a href="https://crew.axl0.fr"> -->
+               <!--TODO: make the crew's page -->
+              <!-- <a class="btn btn--secondary">The&nbsp;Crew</a> -->
+            <!-- </a> -->
+            <a class="btn btn--tertiary" href="https://legacy.axl0.fr/">Legacy&nbsp;Website</a>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="page-section" id="3">
-      <h2>Current projects</h2>
-      <div class="paragraph">
-        <p>
-          I'm currently working on a few different things. Some of them are: <br />
-          <ul>
-            <li>
-              Publishing my dotfiles
+      </section>
+
+      <section class="section" id="2">
+        <h2 class="section__title">My Résumé</h2>
+        <div class="card">
+          <p class="card__text">
+            I've had multiple different projects over the years, but always in the realm of programming. I've spent a lot of time
+            modifying Minecraft when I was younger, making servers and modpack, but currently I'm more focused on making projects
+            from zero (websites, games&hellip;).
+            <br />
+            My full Curriculum Vitae will be available below (Soon&trade;).
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#3">Current projects</a>
+            <!--<a href="https://www.axl0.fr/cv">-->
+              <!-- TODO: make the CV page -->
+              <!--<a class="btn btn--secondary">Full CV</a>-->
+            <!--</a>-->
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="3">
+        <h2 class="section__title">Current projects</h2>
+        <div class="card">
+          <p class="card__text">I'm currently working on a few different things. Some of them are:</p>
+          <ul class="list">
+            <li class="list__item">Publishing my dotfiles</li>
+            <li class="list__item">This website :3c</li>
+            <li class="list__item">Finishing hischool and getting into my dream school</li>
+            <li class="list__item">Various other dumb projects you can find on my GitHub (linked below)</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn--primary" href="#4">Socials</a>
+            <a class="btn btn--secondary" href="https://github.com/Axl0-Fr">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="4">
+        <h2 class="section__title">Socials</h2>
+        <ul class="socials socials--inline">
+          <li class="socials__item">
+            <a class="btn btn--twitter" href="https://twitter.com/AxlOxygen/" aria-label="Twitter">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+          </li>
+          <li class="socials__item">
+            <a class="btn btn--discord" href="https://discord.com/8vqnCKxrgd/" aria-label="Discord">
+              <i class="fa-brands fa-discord"></i>
+            </a>
+          </li>
+          <li class="socials__item">
+            <a class="btn btn--youtube" href="https://www.youtube.com/@Axl0_Frr/" aria-label="YouTube">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="card card--socials">
+          <p class="card__text">
+            You can find me on various platforms, links to all of them are right there :)
+            <br />
+            If you want to contact me about a project of mine, feel free to go to the GitHub repo of said project.
+            <br />
+            If you can't seem to find it, or you just want to say hi, feel free to contact through the Discord.
+            <br />
+            For any legal requests, I'd prefer you did it through e-mail, at axl0.fr@pm.me
+          </p>
+          <ul class="socials socials--stacked">
+            <li class="socials__item">
+              <a class="btn btn--twitter" href="https://twitter.com/AxlOxygen/">
+                <i class="fa-brands fa-twitter"></i>
+                Twitter
+              </a>
             </li>
-            <li>
-              This website :3c
+            <li class="socials__item">
+              <a class="btn btn--discord" href="https://discord.com/8vqnCKxrgd/">
+                <i class="fa-brands fa-discord"></i>
+                Discord
+              </a>
             </li>
-            <li>
-              Finishing hischool and getting into my dream school
-            </li>
-            <li>
-              Various other dumb projects you can find on my GitHub (linked below)
+            <li class="socials__item">
+              <a class="btn btn--youtube" href="https://www.youtube.com/@Axl0_Frr/">
+                <i class="fa-brands fa-youtube"></i>
+                YouTube
+              </a>
             </li>
           </ul>
-        </p>
-        <div class="button-group">
-          <a href="#4">
-            <button class="button-primary">Socials</button>
-          </a>
-          <a href="https://github.com/Axl0-Fr">
-            <button class="button-secondary">GitHub</button>
-          </a>
         </div>
-      </div>
-    </section>
-    <section class="page-section" id="4">
-      <h2>Socials</h2>
-      <div class="socials-row">
-        <a href="https://twitter.com/AxlOxygen/">
-          <button class="button-twitter">
-            <i class="fa-brands fa-twitter"></i>
-          </button>
-        </a>
-        <a href="https://discord.com/8vqnCKxrgd/">
-          <button class="button-discord">
-            <i class="fa-brands fa-discord"></i>
-          </button>
-        </a>
-        <a href="https://www.youtube.com/@Axl0_Frr/">
-          <button class="button-youtube">
-            <i class="fa-brands fa-youtube"></i>
-          </button>
-        </a>
-      </div>
-      <div class="paragraph-socials">
-        <p>
-          You can find me on various platforms, links to all of them are right there :)
-          <br />
-          If you want to contact me about a project of mine, feel free to go to the GitHub repo of said project.
-          <br />
-          If you can't seem to find it, or you just want to say hi, feel free to contact through the Discord.
-          <br />
-          For any legal requests, I'd prefer you did it through e-mail, at axl0.fr@pm.me
-        </p>
-        <div class="socials-column">
-          <a href="https://twitter.com/AxlOxygen/">
-            <button class="button-twitter">
-              <i class="fa-brands fa-twitter"></i>
-              Twitter
-            </button>
-          </a>
-          <a href="https://discord.com/8vqnCKxrgd/">
-            <button class="button-discord">
-              <i class="fa-brands fa-discord"></i>
-              Discord
-            </button>
-          </a>
-          <a href="https://www.youtube.com/@Axl0_Frr/">
-            <button class="button-youtube">
-              <i class="fa-brands fa-youtube"></i>
-              YouTube
-            </button>
-          </a>
-        </div>
-      </div>
-    </section>
-    <section class="footer-section">
-      <div class="footer-content">
-        <p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__content">
+        <p class="footer__text">
           Made with &hearts; by <i>Axl0</i> <br />
-          All rights reserved under the Creative Commons license. &copy; 
-          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC&nbsp;BY-NC-SA&nbsp;4.0</a> 2026 | Hosted on 
-          <a href="https://netlify.com/">Netlify</a><br />
+          All rights reserved under the Creative Commons license. &copy;
+          <a class="footer__link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC&nbsp;BY-NC-SA&nbsp;4.0</a> 2026 | Hosted on
+          <a class="footer__link" href="https://netlify.com/">Netlify</a><br />
           <i>I have no idea how copyrights work. Just don't steal my stuff without asking me first. </i> <br />
-          <a href="https://github.com/Axl0-Fr/axl0-website">Source code</a> |
-          <a href="https://github.com/Axl0-Fr/axl0-website/issues">Report a bug</a> |
-          <a href="https://github.com/Axl0-Fr/axl0-website/blob/main/LICENSE">License</a>
+          <a class="footer__link" href="https://github.com/Axl0-Fr/axl0-website">Source code</a> |
+          <a class="footer__link" href="https://github.com/Axl0-Fr/axl0-website/issues">Report a bug</a> |
+          <a class="footer__link" href="https://github.com/Axl0-Fr/axl0-website/blob/main/LICENSE">License</a>
         </p>
       </div>
-    </section>
+    </footer>
   </body>
 </html>

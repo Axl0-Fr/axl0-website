@@ -13,6 +13,69 @@
 
 This is the repo where all of my website (and subwebsites) are hosted. You can expect to find sourcecode, images, and various resources.
 
+## Site Structure
+
+```
+axl0-website/
+├─ index.html
+├─ favicon.png
+├─ LICENSE
+├─ README.md
+├─ robots.txt
+├─ sitemap.xml
+├─ assets/
+│  ├─ content/
+│  │  ├─ frappe_tile.png
+│  │  ├─ latte_tile.png
+│  │  ├─ macchiato_tile.png
+│  │  └─ mocha_tile.png
+│  └─ fonts/
+│     └─ CartographCF-*.woff2
+├─ script/
+│  └─ frontend.js
+└─ stylesheet/
+   ├─ base.css
+   ├─ components.css
+   ├─ layout.css
+   └─ main.css
+```
+
+`stylesheet/main.css` is the only stylesheet the page loads. It `@import`s the
+three layers in cascade order:
+
+| Layer            | Holds                                                              |
+| ---------------- | ------------------------------------------------------------------ |
+| `base.css`       | `@font-face`, the Catppuccin theme tokens, bare element defaults    |
+| `layout.css`     | the page skeleton: body, the full-height sections, their headings   |
+| `components.css` | the reusable blocks, each with its own responsive overrides         |
+
+## Coding conventions
+
+The markup and stylesheets follow [BEM](https://getbem.com/):
+
+- **Block** — a standalone component: `.topbar`, `.dropdown`, `.card`, `.btn`,
+  `.socials`, `.footer`, …
+- **Element** — a part of a block, named `block__element`: `.topbar__item`,
+  `.card__text`, `.socials__item`, …
+- **Modifier** — a variant or state, named `block__element--modifier`:
+  `.btn--twitter`, `.dropdown--nav`, `.topbar__item--active`, …
+
+A few rules keep the naming honest:
+
+- Only `.main`, `.section` and the `__title`/`__icon`/… elements of the
+  structural blocks live in `layout.css`; everything reusable is a component.
+- `base.css` holds no block classes at all — just tokens and unclassed elements.
+- State classes are always modifiers, never bare `.active`/`.is-open`. The JS in
+  `script/frontend.js` derives the modifier from the element's own base class,
+  so one helper covers `topbar__item`, `dropdown__item`, `burger` and
+  `theme-toggle`.
+- `keyframes` are prefixed with their block: `@keyframes dropdown-fade-in`.
+- A block's own mobile overrides stay at the bottom of its section, never
+  collected into a shared responsive section at the end of the file.
+- Blocks are ordered by containment — a container always precedes what it
+  contains, matching their order in `index.html`. Shared leaf primitives that
+  several containers use (`.btn`) come after all of them.
+
 ## Do you want to contribute?
 
 Feel free to help with this project anytime! Comments, bug reports, or any help will be greatly appreciated. Feel free to contact me on any of my [socials](https://www.axl0.fr/#4)

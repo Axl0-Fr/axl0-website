@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: "Cartograph CF", Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
   background-image: var(--bg-tile);
   background-size: 302px 512px;
   background-position: 50%;

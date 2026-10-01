@@ -11,36 +11,42 @@
   src: url("../assets/fonts/CartographCF-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-ThinItalic.woff2") format("woff2");
   font-weight: 100;
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-ExtraLight.woff2") format("woff2");
   font-weight: 200;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-ExtraLightItalic.woff2") format("woff2");
   font-weight: 200;
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-LightItalic.woff2") format("woff2");
   font-weight: 300;
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
@@ -48,6 +54,7 @@
   font-weight: normal;
   /* 400 */
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
@@ -55,18 +62,21 @@
   font-weight: normal;
   /* 400 */
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-DemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-DemiBoldItalic.woff2") format("woff2");
   font-weight: 600;
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
@@ -74,6 +84,7 @@
   font-weight: bold;
   /* 700 */
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
@@ -81,30 +92,67 @@
   font-weight: bold;
   /* 700 */
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-ExtraBoldItalic.woff2") format("woff2");
   font-weight: 800;
   font-style: italic;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-Heavy.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Cartograph CF";
   src: url("../assets/fonts/CartographCF-HeavyItalic.woff2") format("woff2");
   font-weight: 900;
   font-style: italic;
+  font-display: swap;
+}
+
+/* -------- Fallback face --------
+   font-display: swap means the browser paints with the next family in
+   the stack immediately instead of hiding text until Cartograph lands.
+   That makes the swap visible, so the fallback is metric-matched to
+   Cartograph to keep the rewrap small.
+
+   Measured from CartographCF-Regular.woff2 (unitsPerEm 2000):
+     average advance  61.5% em   <- wide; script faces draw broad,
+   cap height        67.0% em       evenly spaced advances
+     ascender         101.0% em
+     descender         19.0% em
+
+   Courier New sits at 60.0% em advance, 2.5% away, and its cap height
+   is 65.9% — the closest of any font present on a typical machine.
+   Arial and Helvetica are only 50.8% em, so text laid out in them grows
+   by a fifth in width when Cartograph swaps in and every justified
+   paragraph reflows. That is why this is monospace.
+
+   local() only: no url(), so nothing is downloaded. If none of these
+   resolve, the stack falls through to system-ui. */
+@font-face {
+  font-family: "Cartograph Fallback";
+  src:
+    local("Courier New"),
+    local("Liberation Mono"),
+    local("Courier");
+  size-adjust: 102.5%;
+  ascent-override: 101%;
+  descent-override: 19%;
+  line-gap-override: 0%;
 }
 
 /* -------- Theme tokens -------- */
@@ -113,6 +161,13 @@
    overrides these tokens on :root[data-theme="..."]. */
 :root {
   color-scheme: light dark;
+
+  /* Text face. "Cartograph Fallback" is the metric-matched local face
+     defined above; it only ever renders while Cartograph is in flight,
+     so it exists to hold the layout still, not to be read. */
+  --font-sans:
+    "Cartograph CF", "Cartograph Fallback", system-ui, sans-serif;
+
   --rosewater: light-dark(#dc8a78, #f5e0dc);
   --flamingo: light-dark(#dd7878, #f2cdcd);
   --pink: light-dark(#ea76cb, #f5c2e7);

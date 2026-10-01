@@ -16,8 +16,9 @@
 # --- Fonts and tiles ----------------------------------------------------
 # 1 year, never revalidated. Cache-busted by renaming: if you change
 # CartographCF-Regular.woff2, ship it as CartographCF-Regular.v2.woff2
-# and update base.css in the same deploy, or returning visitors keep
-# the old file.
+# and update main.css in the same deploy, or returning visitors keep
+# the old file. The Font Awesome subsets live here too, so the same
+# rule applies to them: rename on change, or the icons never update.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 

@@ -1,10 +1,1046 @@
 /* =============================================================
-   main.css
-   Single stylesheet entry point. Loads the layers in cascade
-   order: tokens, then skeleton, then blocks.
+   main.css — the single stylesheet entry point
+   -------------------------------------------------------------
+   One file, one request. It used to be a four-request @import
+   chain, which is a serial waterfall: the browser cannot discover
+   the imported layers until main.css itself has downloaded and
+   parsed, so every layer cost a full round trip before first
+   paint. PageSpeed charged that 2,520 ms of render blocking.
+
+   The cascade still reads in layers: base (tokens + bare elements),
+   layout (skeleton), components (BEM blocks), then the icon subset
+   last so nothing in the site's own layers can shadow a glyph rule.
+   The section banners below are the ones the separate files carried.
    ============================================================= */
 
-/* Style imports */
-@import "./base.css";
-@import "./layout.css";
-@import "./components.css";
+/* =============================================================
+   Layer: base
+   Fonts, design tokens (Catppuccin themes) and bare element
+   defaults. Nothing here is tied to a block: only @font-face,
+   :root and unclassed elements belong in this layer.
+   ============================================================= */
+
+/* -------- Fonts -------- */
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-ThinItalic.woff2") format("woff2");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-Regular.woff2") format("woff2");
+  font-weight: normal;
+  /* 400 */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-RegularItalic.woff2") format("woff2");
+  font-weight: normal;
+  /* 400 */
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-DemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-DemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-Bold.woff2") format("woff2");
+  font-weight: bold;
+  /* 700 */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  /* 700 */
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-Heavy.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cartograph CF";
+  src: url("../assets/fonts/CartographCF-HeavyItalic.woff2") format("woff2");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* -------- Fallback face --------
+   font-display: swap means the browser paints with the next family in
+   the stack immediately instead of hiding text until Cartograph lands.
+   That makes the swap visible, so the fallback is metric-matched to
+   Cartograph to keep the rewrap small.
+
+   Measured from CartographCF-Regular.woff2 (unitsPerEm 2000):
+     average advance  61.5% em   <- wide; script faces draw broad,
+   cap height        67.0% em       evenly spaced advances
+     ascender         101.0% em
+     descender         19.0% em
+
+   Courier New sits at 60.0% em advance, 2.5% away, and its cap height
+   is 65.9% — the closest of any font present on a typical machine.
+   Arial and Helvetica are only 50.8% em, so text laid out in them grows
+   by a fifth in width when Cartograph swaps in and every justified
+   paragraph reflows. That is why this is monospace.
+
+   local() only: no url(), so nothing is downloaded. If none of these
+   resolve, the stack falls through to system-ui. */
+@font-face {
+  font-family: "Cartograph Fallback";
+  src:
+    local("Courier New"),
+    local("Liberation Mono"),
+    local("Courier");
+  size-adjust: 102.5%;
+  ascent-override: 101%;
+  descent-override: 19%;
+  line-gap-override: 0%;
+}
+
+/* -------- Theme tokens -------- */
+/* The "system" theme: no data-theme attribute, so light-dark() follows
+   the OS preference set by color-scheme below. Every other theme
+   overrides these tokens on :root[data-theme="..."]. */
+:root {
+  color-scheme: light dark;
+
+  /* Text face. "Cartograph Fallback" is the metric-matched local face
+     defined above; it only ever renders while Cartograph is in flight,
+     so it exists to hold the layout still, not to be read. */
+  --font-sans:
+    "Cartograph CF", "Cartograph Fallback", system-ui, sans-serif;
+
+  --rosewater: light-dark(#dc8a78, #f5e0dc);
+  --flamingo: light-dark(#dd7878, #f2cdcd);
+  --pink: light-dark(#ea76cb, #f5c2e7);
+  --mauve: light-dark(#8839ef, #cba6f7);
+  --red: light-dark(#d20f39, #f38ba8);
+  --maroon: light-dark(#e64553, #eba0ac);
+  --peach: light-dark(#fe640b, #fab387);
+  --yellow: light-dark(#df8e1d, #f9e2af);
+  --green: light-dark(#40a02b, #a6e3a1);
+  --teal: light-dark(#179299, #94e2d5);
+  --sky: light-dark(#04a5e5, #89dceb);
+  --sapphire: light-dark(#209fb5, #74c7ec);
+  --blue: light-dark(#1e66f5, #89b4fa);
+  --lavender: light-dark(#7287fd, #b4befe);
+  --text: light-dark(#4c4f69, #cdd6f4);
+  --subtext1: light-dark(#5c5f77, #bac2de);
+  --subtext0: light-dark(#6c6f85, #a6adc8);
+  --overlay2: light-dark(#7c7f93, #9399b2);
+  --overlay1: light-dark(#8c8fa1, #7f849c);
+  --overlay0: light-dark(#9ca0b0, #6c7086);
+  --surface2: light-dark(#acb0be, #585b70);
+  --surface1: light-dark(#bcc0cc, #45475a);
+  --surface0: light-dark(#ccd0da, #313244);
+  --base: light-dark(#eff1f5, #1e1e2e);
+  --mantle: light-dark(#e6e9ef, #181825);
+  --crust: light-dark(#dce0e8, #11111b);
+  --bg-tile: light-dark(
+    url("../assets/content/latte_tile.png"),
+    url("../assets/content/mocha_tile.png")
+  );
+}
+
+:root[data-theme="latte"] {
+  --rosewater: #dc8a78;
+  --flamingo: #dd7878;
+  --pink: #ea76cb;
+  --mauve: #8839ef;
+  --red: #d20f39;
+  --maroon: #e64553;
+  --peach: #fe640b;
+  --yellow: #df8e1d;
+  --green: #40a02b;
+  --teal: #179299;
+  --sky: #04a5e5;
+  --sapphire: #209fb5;
+  --blue: #1e66f5;
+  --lavender: #7287fd;
+  --text: #4c4f69;
+  --subtext1: #5c5f77;
+  --subtext0: #6c6f85;
+  --overlay2: #7c7f93;
+  --overlay1: #8c8fa1;
+  --overlay0: #9ca0b0;
+  --surface2: #acb0be;
+  --surface1: #bcc0cc;
+  --surface0: #ccd0da;
+  --base: #eff1f5;
+  --mantle: #e6e9ef;
+  --crust: #dce0e8;
+  --bg-tile: url("../assets/content/latte_tile.png");
+}
+
+:root[data-theme="frappe"] {
+  --rosewater: #f2d5cf;
+  --flamingo: #eebebe;
+  --pink: #f4b8e4;
+  --mauve: #ca9ee6;
+  --red: #e78284;
+  --maroon: #ea999c;
+  --peach: #ef9f76;
+  --yellow: #e5c890;
+  --green: #a6d189;
+  --teal: #81c8be;
+  --sky: #99d1db;
+  --sapphire: #85c1dc;
+  --blue: #8caaee;
+  --lavender: #babbf1;
+  --text: #c6d0f5;
+  --subtext1: #b5bfe2;
+  --subtext0: #a5adce;
+  --overlay2: #949cbb;
+  --overlay1: #838ba7;
+  --overlay0: #737994;
+  --surface2: #626880;
+  --surface1: #51576d;
+  --surface0: #414559;
+  --base: #303446;
+  --mantle: #292c3c;
+  --crust: #232634;
+  --bg-tile: url("../assets/content/frappe_tile.png");
+}
+
+:root[data-theme="macchiato"] {
+  --rosewater: #f4dbd6;
+  --flamingo: #f0c6c6;
+  --pink: #f5bde6;
+  --mauve: #c6a0f6;
+  --red: #ed8796;
+  --maroon: #ee99a0;
+  --peach: #f5a97f;
+  --yellow: #eed49f;
+  --green: #a6da95;
+  --teal: #8bd5ca;
+  --sky: #91d7e3;
+  --sapphire: #7dc4e4;
+  --blue: #8aadf4;
+  --lavender: #b7bdf8;
+  --text: #cad3f5;
+  --subtext1: #b8c0e0;
+  --subtext0: #a5adcb;
+  --overlay2: #939ab7;
+  --overlay1: #8087a2;
+  --overlay0: #6e738d;
+  --surface2: #5b6078;
+  --surface1: #494d64;
+  --surface0: #363a4f;
+  --base: #24273a;
+  --mantle: #1e2030;
+  --crust: #181926;
+  --bg-tile: url("../assets/content/macchiato_tile.png");
+}
+
+:root[data-theme="mocha"] {
+  --rosewater: #f5e0dc;
+  --flamingo: #f2cdcd;
+  --pink: #f5c2e7;
+  --mauve: #cba6f7;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
+  --peach: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --sky: #89dceb;
+  --sapphire: #74c7ec;
+  --blue: #89b4fa;
+  --lavender: #b4befe;
+  --text: #cdd6f4;
+  --subtext1: #bac2de;
+  --subtext0: #a6adc8;
+  --overlay2: #9399b2;
+  --overlay1: #7f849c;
+  --overlay0: #6c7086;
+  --surface2: #585b70;
+  --surface1: #45475a;
+  --surface0: #313244;
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --crust: #11111b;
+  --bg-tile: url("../assets/content/mocha_tile.png");
+}
+
+/* =============================================================
+   Layer: layout
+   Page skeleton: the document background, the vertical stack of
+   full-height sections and their headings. These rules describe
+   where blocks sit, not what a block looks like — the visual
+   treatment of each block lives in the components layer.
+   ============================================================= */
+
+/* Anchor jumps animate, so the highlight visibly travels with the scroll
+   instead of teleporting. The guard keeps them instant for users who ask for
+   reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  background-image: var(--bg-tile);
+  background-size: 302px 512px;
+  background-position: 50%;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  /* The topbar is fixed and 40px tall, so an anchored section has to stop
+     clear of it rather than tuck its heading underneath. This only affects
+     anchored scrolling, not the rect math the scroll spy measures. */
+  scroll-margin-top: 56px;
+}
+
+.section__title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--subtext0);
+  text-shadow: 2pt 1pt 4pt color-mix(in srgb, var(--base) 15%, transparent);
+  margin: 2rem 0 1rem;
+  text-align: end;
+}
+
+/* =============================================================
+   Layer: components
+   Reusable BEM blocks. Naming: block / block__element /
+   block__element--modifier. The mobile overrides for a block stay
+   with that block, at the bottom of its section, so a responsive
+   rule can never be shadowed by a later layer.
+
+   Blocks are ordered so a container always precedes what it
+   contains, which is also their order in index.html:
+
+     1. fixed chrome   .topbar .burger .dropdown .theme-toggle
+     2. content        .hero .card .list .actions .socials
+     3. shared leaves  .btn
+     4. footer         .footer
+
+   .btn sits in its own tier because two different containers use
+   it (.actions and .socials__item), so no single position can put
+   it after both. It comes last of the components for that reason.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   .topbar — the desktop navigation pill
+   ------------------------------------------------------------- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8pt;
+  background: color-mix(in srgb, var(--base) 50%, transparent);
+  /* Same radius and blur as the dropdown panels. The top corners stay square
+     because the bar is flush with the top of the viewport, like its items. */
+  border-bottom-left-radius: 16pt;
+  border-bottom-right-radius: 16pt;
+  box-shadow: 0 4pt 24pt color-mix(in srgb, var(--base) 15%, transparent);
+  padding: 0 8pt;
+  height: 56pt;
+  border-bottom: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  border-left: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  border-right: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  backdrop-filter: blur(16pt);
+  -webkit-backdrop-filter: blur(16pt);
+}
+
+.topbar__item {
+  color: var(--overlay0);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 4pt 8pt;
+  /* Matches the dropdown item rows (8pt), square at the top since the item
+     sits flush against the bar's top edge. */
+  border-radius: 0 0 8pt 8pt;
+  display: flex;
+  flex-direction: column;
+  transition:
+    background 0.18s,
+    color 0.18s;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar__item:hover {
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
+}
+
+.topbar__item--active {
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
+}
+
+.topbar__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  margin: 4pt;
+}
+
+@media (max-width: 512px) {
+  .topbar {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------
+   .burger — the mobile navigation toggle
+   ------------------------------------------------------------- */
+.burger {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  background: color-mix(in srgb, var(--base) 50%, transparent);
+  border-radius: 8pt;
+  z-index: 20;
+  color: var(--overlay0);
+  font-size: 2rem;
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  box-shadow: 0 4pt 24pt color-mix(in srgb, var(--base) 15%, transparent);
+  /* Same box model as the theme toggle, so the 40px includes the border and
+     both buttons render the same size. */
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    color 0.18s;
+  backdrop-filter: blur(16pt);
+  -webkit-backdrop-filter: blur(16pt);
+}
+
+/* :focus-visible (not :focus) so the highlight drops as soon as the mouse
+   leaves, matching the theme toggle. Clicking to open/close no longer leaves
+   the button stuck in its highlighted state. */
+.burger:hover,
+.burger:focus-visible {
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
+}
+
+.burger__icon {
+  font-size: 1.2rem;
+}
+
+.burger--active {
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
+}
+
+@media (max-width: 512px) {
+  .burger {
+    display: flex;
+  }
+}
+
+/* -------------------------------------------------------------
+   .dropdown — shared panel used by the mobile nav and the theme
+   picker. Only the corner it hangs from differs (.dropdown--left /
+   .dropdown--right); .dropdown--nav is the one that collapses to
+   the burger on wide screens.
+   ------------------------------------------------------------- */
+.dropdown {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  background: color-mix(in srgb, var(--base) 50%, transparent);
+  border-radius: 16pt;
+  box-shadow: 0 6pt 24pt 0 color-mix(in srgb, var(--base) 15%, transparent);
+  z-index: 30;
+  min-width: 208px;
+  padding: 1.5rem;
+  gap: 0.75rem;
+  align-items: flex-start;
+  animation: dropdown-fade-in 0.18s;
+  overflow: hidden;
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  backdrop-filter: blur(16pt);
+  -webkit-backdrop-filter: blur(16pt);
+}
+
+.dropdown--open {
+  display: flex;
+}
+
+.dropdown--left {
+  left: 16px;
+}
+
+.dropdown--right {
+  right: 16px;
+}
+
+.dropdown__item {
+  color: var(--overlay0);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0 1.5em;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 8pt;
+  transition:
+    background 0.18s,
+    color 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 48px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.dropdown__item:hover {
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
+}
+
+.dropdown__item--active {
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
+}
+
+@keyframes dropdown-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 513px) {
+  .dropdown--nav {
+    display: none !important;
+  }
+}
+
+/* -------------------------------------------------------------
+   .theme-toggle — the theme picker trigger
+   ------------------------------------------------------------- */
+.theme-toggle {
+  display: flex;
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  min-width: 40px;
+  height: 40px;
+  background: color-mix(in srgb, var(--base) 50%, transparent);
+  border-radius: 8pt;
+  z-index: 20;
+  color: var(--overlay0);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  box-shadow: 0 4pt 24pt color-mix(in srgb, var(--base) 15%, transparent);
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    color 0.18s;
+  backdrop-filter: blur(16pt);
+  -webkit-backdrop-filter: blur(16pt);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background: color-mix(in srgb, var(--overlay1) 25%, transparent);
+  color: var(--overlay1);
+}
+
+.theme-toggle--active {
+  color: var(--overlay2);
+  background: color-mix(in srgb, var(--overlay2) 25%, transparent);
+}
+
+.theme-toggle__icon {
+  font-size: 1.2rem;
+}
+
+.theme-toggle__label {
+  display: inline;
+}
+
+@media (max-width: 512px) {
+  /* The button stays in the top right corner (nothing else lives there), it
+     only drops its label, same breakpoint as the topbar swap above. */
+  .theme-toggle__label {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------
+   .hero — the name, tagline and intro card of the landing section
+   ------------------------------------------------------------- */
+/* Full width so the right-aligned title/subtitle land on the same edge the
+   other section headings use. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  width: 100%;
+  max-width: 475pt;
+  margin: 2rem auto;
+}
+
+.hero__title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--subtext1);
+  text-shadow: 2pt 1pt 4pt color-mix(in srgb, var(--base) 15%, transparent);
+  margin: 0;
+}
+
+.hero__subtitle {
+  font-size: 1.5rem;
+  color: var(--subtext0);
+  text-shadow: 2pt 1pt 4pt color-mix(in srgb, var(--base) 15%, transparent);
+  font-style: italic;
+}
+
+/* -------------------------------------------------------------
+   .card — the frosted panel holding a block of prose. The social
+   section uses .card--socials, which lays text and links side by
+   side instead of stacking them.
+   ------------------------------------------------------------- */
+.card {
+  background: color-mix(in srgb, var(--base) 50%, transparent);
+  border-radius: 16pt;
+  box-shadow: 0 6pt 24pt 0 color-mix(in srgb, var(--base) 15%, transparent);
+  padding: 1.5rem;
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  backdrop-filter: blur(16pt);
+  -webkit-backdrop-filter: blur(16pt);
+  color: var(--text);
+  max-width: 475pt;
+  margin: 2rem auto;
+}
+
+.card--socials {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card__text {
+  margin-top: 0;
+  text-align: justify;
+}
+
+.card--socials .card__text {
+  text-align: start;
+  flex: 1;
+}
+
+.card__link {
+  display: inline-block;
+  color: var(--lavender);
+  text-decoration: none;
+}
+
+.card__link:hover {
+  color: var(--mauve);
+}
+
+/* -------------------------------------------------------------
+   .list — a bulleted list inside a card
+   ------------------------------------------------------------- */
+.list {
+  list-style: disc;
+  margin: 1em 0;
+  padding-left: 2.5em;
+}
+
+.list__item {
+  margin: 0;
+}
+
+/* -------------------------------------------------------------
+   .actions — the button row at the bottom of a card
+   ------------------------------------------------------------- */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* -------------------------------------------------------------
+   .socials — a list of profile links. .socials--inline is the
+   icon row shown on narrow screens, .socials--stacked the
+   labelled column shown on wide ones.
+   ------------------------------------------------------------- */
+.socials {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.socials--stacked {
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 4pt 8pt;
+}
+
+.socials__item {
+  display: flex;
+}
+
+@media (min-width: 513px) {
+  .socials--inline {
+    display: none !important;
+  }
+}
+
+@media (max-width: 512px) {
+  .socials--stacked {
+    display: none !important;
+  }
+}
+
+/* -------------------------------------------------------------
+   .btn — every call to action. Rendered as an <a> (or a <button>
+   inside a form), so the anchor needs the box the element gives
+   for free.
+   ------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  border-radius: 8pt;
+  padding: 12px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 2px solid;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border 0.2s;
+  font-family: var(--font-sans);
+  font-style: italic;
+  text-transform: capitalize;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.btn--primary {
+  background-color: var(--surface2);
+  color: var(--text);
+  border-color: var(--surface2);
+}
+
+.btn--primary:hover {
+  background-color: transparent;
+  color: var(--surface2);
+}
+
+.btn--secondary {
+  background-color: var(--surface1);
+  color: var(--text);
+  border-color: var(--surface1);
+}
+
+.btn--secondary:hover {
+  background-color: transparent;
+  color: var(--surface1);
+}
+
+.btn--tertiary {
+  background-color: var(--surface0);
+  color: var(--text);
+  border-color: var(--surface0);
+}
+
+.btn--tertiary:hover {
+  background-color: transparent;
+  color: var(--surface0);
+}
+
+.btn--twitter {
+  background-color: var(--sky);
+  color: var(--crust);
+  border-color: var(--sky);
+}
+
+.btn--twitter:hover {
+  background-color: transparent;
+  color: var(--sky);
+}
+
+.btn--discord {
+  background-color: var(--blue);
+  color: var(--crust);
+  border-color: var(--blue);
+}
+
+.btn--discord:hover {
+  background-color: transparent;
+  color: var(--blue);
+}
+
+.btn--youtube {
+  background-color: var(--red);
+  color: var(--crust);
+  border-color: var(--red);
+}
+
+.btn--youtube:hover {
+  background-color: transparent;
+  color: var(--red);
+}
+
+/* -------------------------------------------------------------
+   .footer
+   ------------------------------------------------------------- */
+.footer {
+  min-height: 5vh;
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8pt;
+  border: 3pt solid color-mix(in srgb, var(--surface0) 25%, transparent);
+  color: var(--text);
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-width: 100vw;
+  margin: 0 auto;
+  box-shadow: 0 6pt 24pt 0 color-mix(in srgb, var(--base) 15%, transparent);
+  -webkit-box-shadow: 0 6pt 24pt 0
+    color-mix(in srgb, var(--base) 15%, transparent);
+  background-color: color-mix(in srgb, var(--base) 25%, transparent);
+  backdrop-filter: blur(16pt);
+  -webkit-backdrop-filter: blur(16pt);
+}
+
+.footer__text {
+  margin: 1em 0;
+}
+
+.footer__link {
+  color: var(--mauve);
+  text-decoration: none;
+}
+
+.footer__link:hover {
+  color: var(--lavender);
+}
+
+/* =============================================================
+   Icons — self-hosted Font Awesome 7 subset
+   -------------------------------------------------------------
+   Only the nine glyphs this page actually renders are shipped:
+   house, scroll, clipboard, share-nodes, bars, circle-half-stroke
+   (solid) and twitter, youtube, discord (brands). The full CDN
+   stylesheet is ~74 KiB uncompressed plus 113 KiB + 101 KiB of
+   webfonts from a third-party origin, all of it render-blocking;
+   these two subsets are ~1.2 KiB each from our own origin.
+
+   Regenerating after adding an icon: the codepoint comes from
+   assets/fonts/*.css source in the Font Awesome release, subset
+   with pyftsubset --unicodes=U+XXXX, then add the .fa-<name> rule
+   below and bump the file name (the /assets/* cache rule is
+   immutable for a year, so an unchanged name never updates).
+
+   font-display is swap, not the CDN's block: block hides the icon
+   until the font lands, which delays FCP for a glyph that is only
+   1.2 KiB away.
+   ============================================================= */
+
+@font-face {
+  font-family: "Font Awesome 7 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../assets/fonts/fa-solid-subset.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Font Awesome 7 Brands";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/fa-brands-subset.woff2") format("woff2");
+}
+
+.fa-solid,
+.fa-brands {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-feature-settings: normal;
+  font-synthesis: none;
+  text-rendering: auto;
+  line-height: 1;
+  text-align: center;
+  /* The width the upstream stylesheet reserves so a glyph cannot
+     reflow the row it sits in before the font swaps in. */
+  width: 1.25em;
+}
+
+.fa-solid {
+  font-family: "Font Awesome 7 Free";
+  font-weight: 900;
+}
+
+.fa-brands {
+  font-family: "Font Awesome 7 Brands";
+  font-weight: 400;
+}
+
+.fa-solid::before,
+.fa-brands::before {
+  content: var(--fa);
+  content: var(--fa) / "";
+}
+
+.fa-house {
+  --fa: "\f015";
+}
+.fa-scroll {
+  --fa: "\f70e";
+}
+.fa-clipboard {
+  --fa: "\f328";
+}
+.fa-share-nodes {
+  --fa: "\f1e0";
+}
+.fa-bars {
+  --fa: "\f0c9";
+}
+.fa-circle-half-stroke {
+  --fa: "\f042";
+}
+.fa-twitter {
+  --fa: "\f099";
+}
+.fa-youtube {
+  --fa: "\f167";
+}
+.fa-discord {
+  --fa: "\f392";
+}

@@ -1,0 +1,33 @@
+# Netlify _headers — https://docs.netlify.com/routing/headers/
+#
+# Netlify serves every asset with:
+#   cache-control: public,max-age=0,must-revalidate
+# so nothing is ever cached and every repeat visit pays a conditional GET
+# per file. These rules override that for the paths worth caching.
+#
+# The three paths below are mutually disjoint, so the order they appear in
+# does not matter.
+#
+# HTML (index.html, favicon.png, sitemap.xml, robots.txt) is deliberately
+# NOT listed: it keeps Netlify's default of max-age=0,must-revalidate,
+# which is what we want. The HTML names the CSS and the CSS names the
+# fonts, so it is the revalidation entry point for a deploy.
+
+# --- Fonts and tiles ----------------------------------------------------
+# 1 year, never revalidated. Cache-busted by renaming: if you change
+# CartographCF-Regular.woff2, ship it as CartographCF-Regular.v2.woff2
+# and update base.css in the same deploy, or returning visitors keep
+# the old file.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# --- CSS ----------------------------------------------------------------
+# Short TTL with stale-while-revalidate: browsers serve from cache
+# immediately and revalidate in the background, so a deploy still lands
+# within an hour but costs no round trip on the critical path.
+/stylesheet/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# --- JavaScript ---------------------------------------------------------
+/script/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

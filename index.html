@@ -22,9 +22,19 @@
       })();
     </script>
 
-    <!-- === Stylesheet (single entry point) === -->
+    <!-- === Stylesheet (single entry point) ===
+         The icon subset is preloaded because the nav icons are above
+         the fold and font-display:swap would otherwise show a blank
+         glyph for a frame or two. The brands subset is below the fold
+         in the socials section, so it is left to load on its own. -->
     <link rel="stylesheet" href="./stylesheet/main.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.0.0/css/all.css" />
+    <link
+      rel="preload"
+      href="./assets/fonts/fa-solid-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- === Javascript (single entry point) === -->
     <script src="./script/frontend.js" defer></script>

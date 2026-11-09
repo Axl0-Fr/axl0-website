@@ -30,24 +30,34 @@ axl0-website/
 │  │  ├─ macchiato_tile.png
 │  │  └─ mocha_tile.png
 │  └─ fonts/
-│     └─ CartographCF-*.woff2
+│     ├─ CartographCF-*.woff2
+│     ├─ fa-brands-subset.woff2
+│     └─ fa-solid-subset.woff2
 ├─ script/
 │  └─ frontend.js
 └─ stylesheet/
-   ├─ base.css
-   ├─ components.css
-   ├─ layout.css
    └─ main.css
 ```
 
-`stylesheet/main.css` is the only stylesheet the page loads. It `@import`s the
-three layers in cascade order:
+`stylesheet/main.css` is the only stylesheet the page loads, and it is one file
+rather than an `@import` chain on purpose: an import is serial, so each layer
+cost a round trip before first paint (PageSpeed measured 2,520 ms of render
+blocking). The file still reads in layers, in the order they must win:
 
-| Layer            | Holds                                                              |
-| ---------------- | ------------------------------------------------------------------ |
-| `base.css`       | `@font-face`, the Catppuccin theme tokens, bare element defaults    |
-| `layout.css`     | the page skeleton: body, the full-height sections, their headings   |
-| `components.css` | the reusable blocks, each with its own responsive overrides         |
+| Layer      | Holds                                                              |
+| ---------- | ------------------------------------------------------------------ |
+| base       | `@font-face`, the Catppuccin theme tokens, bare element defaults    |
+| layout     | the page skeleton: body, the full-height sections, their headings   |
+| components | the reusable blocks, each with its own responsive overrides         |
+| icons      | the self-hosted Font Awesome subset and its nine glyphs, last so no  |
+|            | site rule can shadow a glyph                                        |
+
+Icons come from a 9-glyph Font Awesome 7 subset in `assets/fonts/`, not the
+CDN. The full CDN stylesheet plus its two webfonts is ~288 KiB from a
+third-party origin and blocks render; the subset is ~2.4 KiB from this origin.
+To add an icon, subset the glyph with `pyftsubset`, drop the `.woff2` in
+`assets/fonts/`, add the `.fa-<name>` rule, and rename the file — `/assets/*`
+is cached immutably for a year, so an unchanged name never updates.
 
 ## Coding conventions
 
@@ -63,8 +73,10 @@ The markup and stylesheets follow [BEM](https://getbem.com/):
 A few rules keep the naming honest:
 
 - Only `.main`, `.section` and the `__title`/`__icon`/… elements of the
-  structural blocks live in `layout.css`; everything reusable is a component.
-- `base.css` holds no block classes at all — just tokens and unclassed elements.
+  structural blocks live in the layout layer; everything reusable is a component.
+- The base layer holds no block classes at all — just tokens and unclassed
+  elements.
+- The icon subset goes last, so a site rule can never shadow a glyph.
 - State classes are always modifiers, never bare `.active`/`.is-open`. The JS in
   `script/frontend.js` derives the modifier from the element's own base class,
   so one helper covers `topbar__item`, `dropdown__item`, `burger` and

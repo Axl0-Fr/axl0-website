@@ -11,8 +11,9 @@ Allow: /
 Sitemap: https://www.axl0.fr/sitemap.xml
 
 # NOTE: do not crawl-block stylesheet/, script/, assets/ or assets/fonts/.
-# stylesheet/main.css drives the entire layout, the four Catppuccin themes and
-# the light/dark switching. Blocking it makes the site render as unstyled markup.
+# stylesheet/main.css drives the entire layout, the icon glyphs, the four
+# Catppuccin themes and the light/dark switching. Blocking it makes the site
+# render as unstyled markup.
 
 # Subdomains (crew.axl0.fr, legacy.axl0.fr) are separate deployments and need
 # their own robots.txt.
